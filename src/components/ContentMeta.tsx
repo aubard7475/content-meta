@@ -51,15 +51,10 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
         }
       }
 
-      // Display reading time if enabled
+      // Display reading time if enabled (THIS IS WHAT HAS BEEN CHANGED)
       if (options.showReadingTime) {
-        const { minutes, words: _words } = readingTime(text as string);
-        const locale = cfg.locale || "en-US";
-        const i18nData = i18n(locale);
-        const displayedTime = i18nData.components.contentMeta.readingTime({
-          minutes: Math.ceil(minutes),
-        });
-        segments.push(<span>{displayedTime}</span>);
+        const { words } = readingTime(text as string);
+        segments.push(<span>{Math.round(words)} words</span>);
       }
 
       return (
